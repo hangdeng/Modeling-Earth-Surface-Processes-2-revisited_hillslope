@@ -53,8 +53,8 @@ for i = 1:length(t)
     
     dqdx = diff(Q)/dx;
     
-    dHdt = (rhor/rhos)*w-(1/rhos)*dqdx;
-    
+    %dHdt = (rhor/rhos)*w-(1/rhos)*dqdx;
+    dHdt = (rhor/rhos)*w-(1/rhos)*abs(dqdx);
     % update soil thickness
     H =H + (dHdt*dt);
 
@@ -63,6 +63,8 @@ for i = 1:length(t)
     % channel incision at the edges of the hillslope
     zb(1) = zb(1)-zinc_channel*dt;
     zb(end) = zb(end)-zinc_channel*dt;
+    %zb(1:3) = zb(1:3)-zinc_channel*dt;
+    %zb(end-3:end) = zb(end-3:end)-zinc_channel*dt;
     % update total elevation
     z = zb + H; % total thickness = bedrock + soil
 
